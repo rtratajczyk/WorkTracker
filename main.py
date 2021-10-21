@@ -7,26 +7,54 @@ window.title("WorkTracker")
 frame = tk.Frame(master=window)
 frame.pack()
 
+
 class task:
     """The task class"""
-    def __init__(self, name, row):
+    def __init__(self, name, number):
         self.name = name
-        self.row = row
+        self.number = number
+        self.row = number + 2
         self.is_tracked = False
         self.recordedTime = 0
+        self.deleted = False
         self.NameLabel = tk.Label(master=frame, text=self.name)
         self.TimeLabel = tk.Label(master=frame, text=self.recordedTime)
         self.RadioButton = tk.Radiobutton(master=frame, value=rows, variable=var, command=select)
-        self.DeleteButton = tk.Button(master=frame, text="Delete task", command=delTask)
+        self.DeleteButton = tk.Button(master=frame, text="Delete task", command=lambda a=self.number: delTask(a))
 
 
-tasks = ['dummy', 'dummy']  # creating a list for storing tasks with two dummy tasks (because first two rows are taken)
+def redrawTasklist():
+    global rows
+    global tasks
+    global redrawn_tasks
+    rows = 2
+    for t in tasks:
+        if t.deleted:
+            return
+        else:
+            t.NameLabel.grid(row=rows, column=0)
+            t.TimeLabel.grid(row=rows, column=1)
+            t.RadioButton.grid(row=rows, column=2)
+            t.DeleteButton.grid(row=rows, column=3)
+            rows +=1
+
+
+def delTask(number):
+    global tasks
+    print("Delete task named "+tasks[number].name + " number " + str(number))
+    tasks[number].deleted = True
+    #redrawTasklist()
+
+
+tasks = []
+redrawn_tasks = []
 rows = 2
 var = tk.IntVar()
 activeTask = 0
 start_time = 0
 stop_time = 0
 first_count = True
+
 
 
 def time_convert(sec):
@@ -69,35 +97,17 @@ def select():
     taskNumber = var.get()
     timeStart(taskNumber)
     tasks[taskNumber].is_tracked = True
-    rows += 1
-    activeTask=taskNumber
-    print(rows)
+    activeTask = taskNumber
 
-
-def delTask():
-    print("DELETE TASK NUMBER " + str(var.get()))
-    frame.grid_forget()
 
 def addTask():
 
     if TaskCreationEntry.get() == "":
         return
     global rows
-    tasks.append(task(TaskCreationEntry.get(), rows))
-    '''NewTaskLabel = tk.Label(master=frame, text=TaskCreationEntry.get())
-    NewTaskLabel.grid(row=rows, column=0)
-    TaskCreationEntry.delete(0, tk.END)
 
-    NewTaskTimer = tk.Label(master=frame, text="00:00:00")
-    NewTaskTimer.grid(row=rows, column=1)
-
-
-    NewTaskRadioBtn = tk.Radiobutton(master=frame, value=rows, variable=var, command=select)
-    NewTaskRadioBtn.grid(row=rows, column=3)
-
-    KillTaskBtn = tk.Button(master=frame, text="Delete task", command=delTask)
-    KillTaskBtn.grid(row=rows, column=4)
-    '''
+    tasks.append(task(TaskCreationEntry.get(), len(tasks)))
+    #tasks[-1].number = len(tasks)
     tasks[-1].NameLabel.grid(row=rows, column=0)
     tasks[-1].TimeLabel.grid(row=rows, column=1)
     tasks[-1].RadioButton.grid(row=rows, column=2)
