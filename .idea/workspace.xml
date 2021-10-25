@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="Redesigned functionality of code - widgets are now stored in the Task class. Time tracking works.">
+    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="Reworked code logic a bit (task numbering), needs cleanup and debugging now. Delete buttons properly recognize themselves, select() function is to be refactored.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -143,7 +143,14 @@
       <option name="project" value="LOCAL" />
       <updated>1634758940600</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Reworked code logic a bit (task numbering), needs cleanup and debugging now. Delete buttons properly recognize themselves, select() function is to be refactored.">
+      <created>1634847430935</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1634847430935</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -163,12 +170,23 @@
     <MESSAGE value="Radiobuttons now properly toggling, fixed new task naming" />
     <MESSAGE value="Created class &quot;Task&quot;, implemented drafts of new functions." />
     <MESSAGE value="Redesigned functionality of code - widgets are now stored in the Task class. Time tracking works." />
-    <option name="LAST_COMMIT_MESSAGE" value="Redesigned functionality of code - widgets are now stored in the Task class. Time tracking works." />
+    <MESSAGE value="Reworked code logic a bit (task numbering), needs cleanup and debugging now. Delete buttons properly recognize themselves, select() function is to be refactored." />
+    <option name="LAST_COMMIT_MESSAGE" value="Reworked code logic a bit (task numbering), needs cleanup and debugging now. Delete buttons properly recognize themselves, select() function is to be refactored." />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>68</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="tasks" language="Python" />
+        <watch expression="redrawn_tasks" language="Python" />
       </configuration>
     </watches-manager>
   </component>
