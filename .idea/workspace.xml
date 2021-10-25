@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="Reworked code logic a bit (task numbering), needs cleanup and debugging now. Delete buttons properly recognize themselves, select() function is to be refactored.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="Deleting tasks &lt;finally&gt; works as intended with no indexing errors. However, selecting is yet to be updated the same way.">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -150,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1634847430935</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Deleting tasks &lt;finally&gt; works as intended with no indexing errors. However, selecting is yet to be updated the same way.">
+      <created>1635192343951</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1635192343951</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -171,14 +177,15 @@
     <MESSAGE value="Created class &quot;Task&quot;, implemented drafts of new functions." />
     <MESSAGE value="Redesigned functionality of code - widgets are now stored in the Task class. Time tracking works." />
     <MESSAGE value="Reworked code logic a bit (task numbering), needs cleanup and debugging now. Delete buttons properly recognize themselves, select() function is to be refactored." />
-    <option name="LAST_COMMIT_MESSAGE" value="Reworked code logic a bit (task numbering), needs cleanup and debugging now. Delete buttons properly recognize themselves, select() function is to be refactored." />
+    <MESSAGE value="Deleting tasks &lt;finally&gt; works as intended with no indexing errors. However, selecting is yet to be updated the same way." />
+    <option name="LAST_COMMIT_MESSAGE" value="Deleting tasks &lt;finally&gt; works as intended with no indexing errors. However, selecting is yet to be updated the same way." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>68</line>
+          <line>65</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>

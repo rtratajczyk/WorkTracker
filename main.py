@@ -2,7 +2,7 @@ import tkinter as tk
 import tkinter.ttk
 import time
 
-'''TODO NEXT: fix deleting, do time updating with label.after()'''
+'''BACKLOG: fix recording time for deleted tasks, somehow do time updating with label.after()'''
 
 
 window = tk.Tk()
@@ -24,7 +24,6 @@ class Task:
         self.NameLabel = tk.Label(master=frame, text=self.name)
         self.TimeLabel = tk.Label(master=frame, text=self.recordedTime)
         self.RadioButton = tk.Radiobutton(master=frame, value=rows, variable=var, command=lambda a=self.number: select(a))
-        #self.DeleteButton = tk.Button(master=frame, text="X", command=lambda a=self.number: delTask(a))
         self.DeleteButton = tk.Button(master=frame, text="X", command=lambda: delTask(self.number))
 
 
@@ -37,22 +36,20 @@ def redrawTasklist():
     redrawn_tasks = []
     rows = 4
     for t in tasks:
-        if t.deleted:
-            return
-        else:
-            t.number = num
-            t.DeleteButton.configure(command=lambda a=num: delTask(a))
-            print("The new number of Task named " + t.name + " is " + str(t.number))
-            redrawn_tasks.append(Task(t.name, len(redrawn_tasks)))
-            redrawn_tasks[num].is_tracked = tasks[num].is_tracked
-            redrawn_tasks[num].recordedTime = tasks[num].recordedTime
-            redrawn_tasks[num].NameLabel = tasks[num].NameLabel
-            redrawn_tasks[num].TimeLabel = tasks[num].TimeLabel
-            num += 1
-            #t.NameLabel.destroy()
-            #t.TimeLabel.destroy()
-            #t.RadioButton.destroy()
-            #t.DeleteButton.destroy()
+        t.number = num
+        t.DeleteButton.configure(command=lambda a=num: delTask(a))
+        t.RadioButton.configure(command=lambda a=num: select(a))
+        print("The new number of Task named " + t.name + " is " + str(t.number))
+        redrawn_tasks.append(Task(t.name, len(redrawn_tasks)))
+        redrawn_tasks[num].is_tracked = tasks[num].is_tracked
+        redrawn_tasks[num].recordedTime = tasks[num].recordedTime
+        redrawn_tasks[num].NameLabel = tasks[num].NameLabel
+        redrawn_tasks[num].TimeLabel = tasks[num].TimeLabel
+        num += 1
+        #t.NameLabel.destroy()
+        #t.TimeLabel.destroy()
+        #t.RadioButton.destroy()
+        #t.DeleteButton.destroy()
 
     #tasks = []
     #tasks = redrawn_tasks
@@ -118,12 +115,15 @@ def timeStop(taskNumber):
     global stop_time
     stop_time = time.time()
     elapsed_time = time_convert(stop_time-start_time)
-    tasks[taskNumber].recordedTime += (stop_time-start_time)
-    tasks[taskNumber].TimeLabel.config(text=str(time_convert(tasks[taskNumber].recordedTime)))
+    try:
+        tasks[taskNumber].recordedTime += (stop_time-start_time)
+        tasks[taskNumber].TimeLabel.config(text=str(time_convert(tasks[taskNumber].recordedTime)))
+    except IndexError:
+        return
     print("Tracking stopped. Lapsed time is: " + elapsed_time)
 
 
-def select(task_number):   
+def select(task_number):
     global first_count
     global activeTask
 
