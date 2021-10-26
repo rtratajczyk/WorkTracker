@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="Selecting now works properly as well. Some things left to debug and more importantly, real-time stopwatch display is to be implemented.">
+    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="Deleting a tracked task will now work properly. Time tracking logic reworked slightly.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -161,7 +161,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635192957612</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Deleting a tracked task will now work properly. Time tracking logic reworked slightly.">
+      <created>1635277315474</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1635277315474</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -184,7 +191,8 @@
     <MESSAGE value="Reworked code logic a bit (task numbering), needs cleanup and debugging now. Delete buttons properly recognize themselves, select() function is to be refactored." />
     <MESSAGE value="Deleting tasks &lt;finally&gt; works as intended with no indexing errors. However, selecting is yet to be updated the same way." />
     <MESSAGE value="Selecting now works properly as well. Some things left to debug and more importantly, real-time stopwatch display is to be implemented." />
-    <option name="LAST_COMMIT_MESSAGE" value="Selecting now works properly as well. Some things left to debug and more importantly, real-time stopwatch display is to be implemented." />
+    <MESSAGE value="Deleting a tracked task will now work properly. Time tracking logic reworked slightly." />
+    <option name="LAST_COMMIT_MESSAGE" value="Deleting a tracked task will now work properly. Time tracking logic reworked slightly." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

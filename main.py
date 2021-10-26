@@ -25,6 +25,10 @@ class Task:
         self.DeleteButton = tk.Button(master=frame, text="X", command=lambda: delTask(self.number))
 
 
+def onReturnKey(event):
+    addTask()
+
+
 def redrawTasklist():
     global rows
     global tasks
@@ -142,6 +146,7 @@ TaskCreationLabel.grid(row=1, column=0)
 TaskCreationEntry = tk.Entry(master=frame)
 TaskCreationEntry.grid(row=1, column=1)
 TaskCreationEntry.insert(0, "New Task")
+TaskCreationEntry.bind('<Return>', onReturnKey)
 
 TaskCreationBtn = tk.Button(master=frame, text="Add", command=addTask)
 TaskCreationBtn.grid(row=1, column=2)
