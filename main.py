@@ -7,7 +7,6 @@ import time
 
 window = tk.Tk()
 window.title("WorkTracker")
-# window.columnconfigure
 frame = tk.Frame(master=window)
 frame.pack()
 
@@ -17,7 +16,6 @@ class Task:
     def __init__(self, name, number):
         self.name = name
         self.number = number
-#       self.row = number + 2    is this even used?
         self.is_tracked = False
         self.recordedTime = 0
         self.deleted = False
@@ -30,41 +28,22 @@ class Task:
 def redrawTasklist():
     global rows
     global tasks
-    global redrawn_tasks
 
     num = 0
-    redrawn_tasks = []
     rows = 4
     for t in tasks:
         t.number = num
         t.DeleteButton.configure(command=lambda a=num: delTask(a))
         t.RadioButton.configure(command=lambda a=num: select(a))
         print("The new number of Task named " + t.name + " is " + str(t.number))
-        redrawn_tasks.append(Task(t.name, len(redrawn_tasks)))
-        redrawn_tasks[num].is_tracked = tasks[num].is_tracked
-        redrawn_tasks[num].recordedTime = tasks[num].recordedTime
-        redrawn_tasks[num].NameLabel = tasks[num].NameLabel
-        redrawn_tasks[num].TimeLabel = tasks[num].TimeLabel
         num += 1
-        #t.NameLabel.destroy()
-        #t.TimeLabel.destroy()
-        #t.RadioButton.destroy()
-        #t.DeleteButton.destroy()
-
-    #tasks = []
-    #tasks = redrawn_tasks
-    '''for t in tasks:
-        t.NameLabel.grid(row=rows, column=0)
-        t.TimeLabel.grid(row=rows, column=1)
-        t.RadioButton.grid(row=rows, column=2)
-        t.DeleteButton.grid(row=rows, column=3)
-        rows += 1'''
 
 
 def delTask(number):
     global tasks
     print("Deleting Task number: " + str(number) + ", while the current highest index of tasks[] is " + str(len(tasks)-1))
-#   tasks[number].deleted = True
+    if tasks[number].is_tracked:
+        timeStop()
     tasks[number].NameLabel.destroy()
     tasks[number].TimeLabel.destroy()
     tasks[number].RadioButton.destroy()
@@ -72,11 +51,8 @@ def delTask(number):
     del tasks[number]
     redrawTasklist()
 
-def foo():
-    print("I, DeleteButton, have become reconfigured!")
 
 tasks = []
-redrawn_tasks = []
 rows = 4
 var = tk.IntVar()
 activeTask = 0
@@ -86,21 +62,22 @@ stop_time = 0
 first_count = True
 
 
-
 def time_convert(sec):
     mins = sec // 60
     sec = sec % 60
     hours = mins // 60
     mins = mins % 60
-    #print("{0}:{1}:{2}".format(int(hours), int(mins), sec))
+    # print("{0}:{1}:{2}".format(int(hours), int(mins), sec))
     return "{0}h : {1}m : {2}s".format(int(hours), int(mins), int(sec))
 
 
-def timeStart(taskNumber):
+def timeStart(task_number):
     global activeTask
     global start_time
+    global tasks
     start_time = time.time()
-    activeTask = taskNumber
+    activeTask = task_number
+    tasks[task_number].is_tracked = True
     print("Tracking started for Task: " + tasks[activeTask].name)
 
 
@@ -108,18 +85,23 @@ def timeCounterLabel(label):
     global activeTask
     global stop_time
     stop_time = time.time()
-    label.after(1000, )
+    # label.after(1000, )
 
 
-def timeStop(taskNumber):
+def timeStop():
     global stop_time
+    global tasks
     stop_time = time.time()
     elapsed_time = time_convert(stop_time-start_time)
-    try:
-        tasks[taskNumber].recordedTime += (stop_time-start_time)
-        tasks[taskNumber].TimeLabel.config(text=str(time_convert(tasks[taskNumber].recordedTime)))
-    except IndexError:
-        return
+
+    for t in tasks:
+        if t.is_tracked:
+            t.is_tracked = False
+            try:
+                t.recordedTime += (stop_time-start_time)
+                t.TimeLabel.config(text=str(time_convert(t.recordedTime)))
+            except IndexError:
+                return
     print("Tracking stopped. Lapsed time is: " + elapsed_time)
 
 
@@ -128,12 +110,12 @@ def select(task_number):
     global activeTask
 
     if not first_count:
-        timeStop(activeTask)
+        timeStop()
     else:
         first_count = False
     timeStart(task_number)
-    tasks[task_number].is_tracked = True
-    activeTask = task_number
+    # tasks[task_number].is_tracked = True
+
 
 
 def addTask():
@@ -143,7 +125,7 @@ def addTask():
     global rows
 
     tasks.append(Task(TaskCreationEntry.get(), len(tasks)))
-    #tasks[-1].number = len(tasks)
+    # tasks[-1].number = len(tasks)
     tasks[-1].NameLabel.grid(row=rows, column=0)
     tasks[-1].TimeLabel.grid(row=rows, column=1)
     tasks[-1].RadioButton.grid(row=rows, column=2)
@@ -164,6 +146,9 @@ TaskCreationEntry.insert(0, "New Task")
 TaskCreationBtn = tk.Button(master=frame, text="Add", command=addTask)
 TaskCreationBtn.grid(row=1, column=2)
 
+StopBtn = tk.Button(master=frame, text="Stop tracking", command=timeStop)
+StopBtn.grid(row=1, column=3)
+
 NameTag = tk.Label(master=frame, text="Task name")
 NameTag.grid(row=2, column=0)
 
@@ -178,8 +163,6 @@ DeleteTag.grid(row=2, column=3)
 
 Separator = tkinter.ttk.Separator(master=frame)
 Separator.grid(row=3, column=0, columnspan=4, sticky="ew")
-
-
 
 
 window.mainloop()
