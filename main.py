@@ -2,7 +2,7 @@ import tkinter as tk
 import tkinter.ttk
 import time
 
-'''BACKLOG: fix recording time for deleted tasks, somehow do time updating with label.after()'''
+'''BACKLOG: deselect radiobuttons when stopping time tracking, somehow do time updating with label.after()'''
 
 
 window = tk.Tk()
@@ -64,7 +64,7 @@ running = False
 start_time = 0
 stop_time = 0
 first_count = True
-
+counter = 0
 
 def time_convert(sec):
     mins = sec // 60
@@ -85,25 +85,20 @@ def timeStart(task_number):
     print("Tracking started for Task: " + tasks[activeTask].name)
 
 
-def timeCounterLabel(label):
-    global activeTask
-    global stop_time
-    stop_time = time.time()
-    # label.after(1000, )
-
 
 def timeStop():
     global stop_time
     global tasks
+    global counter
     stop_time = time.time()
     elapsed_time = time_convert(stop_time-start_time)
-
+    counter = 0
     for t in tasks:
         if t.is_tracked:
             t.is_tracked = False
             try:
                 t.recordedTime += (stop_time-start_time)
-                t.TimeLabel.config(text=str(time_convert(t.recordedTime)))
+                t.TimeLabel.configure(text=str(time_convert(t.recordedTime)))
             except IndexError:
                 return
     print("Tracking stopped. Lapsed time is: " + elapsed_time)
@@ -121,7 +116,6 @@ def select(task_number):
     # tasks[task_number].is_tracked = True
 
 
-
 def addTask():
 
     if TaskCreationEntry.get() == "":
@@ -129,6 +123,7 @@ def addTask():
     global rows
 
     tasks.append(Task(TaskCreationEntry.get(), len(tasks)))
+    TaskCreationEntry.delete(0, tk.END)
     # tasks[-1].number = len(tasks)
     tasks[-1].NameLabel.grid(row=rows, column=0)
     tasks[-1].TimeLabel.grid(row=rows, column=1)
@@ -151,8 +146,8 @@ TaskCreationEntry.bind('<Return>', onReturnKey)
 TaskCreationBtn = tk.Button(master=frame, text="Add", command=addTask)
 TaskCreationBtn.grid(row=1, column=2)
 
-StopBtn = tk.Button(master=frame, text="Stop tracking", command=timeStop)
-StopBtn.grid(row=1, column=3)
+# StopBtn = tk.Button(master=frame, text="Stop tracking", command=timeStop)
+# StopBtn.grid(row=1, column=3)
 
 NameTag = tk.Label(master=frame, text="Task name")
 NameTag.grid(row=2, column=0)
