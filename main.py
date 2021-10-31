@@ -29,7 +29,7 @@ def onReturnKey(event):
     addTask()
 
 
-def redrawTasklist():
+def redrawTaskList():
     global rows
     global tasks
 
@@ -53,7 +53,7 @@ def delTask(number):
     tasks[number].RadioButton.destroy()
     tasks[number].DeleteButton.destroy()
     del tasks[number]
-    redrawTasklist()
+    redrawTaskList()
 
 
 tasks = []
@@ -66,7 +66,8 @@ stop_time = 0
 first_count = True
 counter = 0
 
-def time_convert(sec):
+
+def timeConvert(sec):
     mins = sec // 60
     sec = sec % 60
     hours = mins // 60
@@ -85,20 +86,19 @@ def timeStart(task_number):
     print("Tracking started for Task: " + tasks[activeTask].name)
 
 
-
 def timeStop():
     global stop_time
     global tasks
     global counter
     stop_time = time.time()
-    elapsed_time = time_convert(stop_time-start_time)
+    elapsed_time = timeConvert(stop_time-start_time)
     counter = 0
     for t in tasks:
         if t.is_tracked:
             t.is_tracked = False
             try:
                 t.recordedTime += (stop_time-start_time)
-                t.TimeLabel.configure(text=str(time_convert(t.recordedTime)))
+                t.TimeLabel.configure(text=str(timeConvert(t.recordedTime)))
             except IndexError:
                 return
     print("Tracking stopped. Lapsed time is: " + elapsed_time)
