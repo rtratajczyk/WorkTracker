@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="">
+    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="Branch-fixing commit.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -197,7 +197,21 @@
       <option name="project" value="LOCAL" />
       <updated>1635278295949</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="A stable, yet uncommented version. Commit done for forking purposes.">
+      <created>1635696277340</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1635696277340</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Branch-fixing commit.">
+      <created>1635696501395</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1635696501395</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -205,7 +219,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/alternative" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -222,7 +248,9 @@
     <MESSAGE value="Selecting now works properly as well. Some things left to debug and more importantly, real-time stopwatch display is to be implemented." />
     <MESSAGE value="Deleting a tracked task will now work properly. Time tracking logic reworked slightly." />
     <MESSAGE value="You can now add tasks by pressing Return." />
-    <option name="LAST_COMMIT_MESSAGE" value="You can now add tasks by pressing Return." />
+    <MESSAGE value="A stable, yet uncommented version. Commit done for forking purposes." />
+    <MESSAGE value="Branch-fixing commit." />
+    <option name="LAST_COMMIT_MESSAGE" value="Branch-fixing commit." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

@@ -5,10 +5,7 @@ import time
 '''BACKLOG: deselect radiobuttons when stopping time tracking, somehow do time updating with label.after()'''
 
 
-window = tk.Tk()
-window.title("WorkTracker")
-frame = tk.Frame(master=window)
-frame.pack()
+
 
 
 class Task:
@@ -56,15 +53,7 @@ def delTask(number):
     redrawTaskList()
 
 
-tasks = []
-rows = 4
-var = tk.IntVar()
-activeTask = 0
-running = False
-start_time = 0
-stop_time = 0
-first_count = True
-counter = 0
+
 
 
 def timeConvert(sec):
@@ -80,43 +69,73 @@ def timeStart(task_number):
     global activeTask
     global start_time
     global tasks
-    start_time = time.time()
-    activeTask = task_number
-    tasks[task_number].is_tracked = True
-    print("Tracking started for Task: " + tasks[activeTask].name)
+    global counter
+
+    if tasks[task_number].is_tracked:
+        tasks[task_number].RadioButton.deselect()
+        return
+    else:
+        counter = 0
+        start_time = time.time()
+        activeTask = task_number
+        tasks[task_number].is_tracked = True
+        print("Tracking started for Task: " + tasks[activeTask].name)
+        updateLoop(task_number)
+
+
+def updateLoop(task_number):
+    """A looping function which allows for real-time updating of the time label of a task."""
+    global tasks
+    global counter
+
+    def update():
+        if tasks[task_number].is_tracked:
+            global counter
+            tasks[task_number].TimeLabel.configure(text=str(timeConvert(tasks[task_number].recordedTime)))
+            tasks[task_number].TimeLabel.after(1000, update)
+            counter += 1
+            tasks[task_number].recordedTime += 1
+    update()
 
 
 def timeStop():
+    """A function for easy setting of the is_tracked flag of a task to False."""
     global stop_time
     global tasks
     global counter
-    stop_time = time.time()
-    elapsed_time = timeConvert(stop_time-start_time)
-    counter = 0
-    for t in tasks:
+    #stop_time = time.time()
+    tasks[activeTask].is_tracked = False
+    # elapsed_time = timeConvert(stop_time-start_time)
+    '''for t in tasks:
         if t.is_tracked:
             t.is_tracked = False
             try:
                 t.recordedTime += (stop_time-start_time)
                 t.TimeLabel.configure(text=str(timeConvert(t.recordedTime)))
             except IndexError:
-                return
-    print("Tracking stopped. Lapsed time is: " + elapsed_time)
+                return'''
+    # print("Tracking stopped. Lapsed time is: " + elapsed_time)
 
 
 def select(task_number):
     global first_count
-    global activeTask
+    # global activeTask
+    global tasks
 
     if not first_count:
         timeStop()
     else:
         first_count = False
-    timeStart(task_number)
+    if task_number == activeTask:
+        return
+    else:
+        timeStart(task_number)
     # tasks[task_number].is_tracked = True
 
 
 def addTask():
+    """A function for adding tasks to the tasks[] list. Pulls the name from the TaskCreationEntry entry, works only if
+    the entry is not empty. Also grids all widgets of the new task to the frame."""
 
     if TaskCreationEntry.get() == "":
         return
@@ -124,13 +143,29 @@ def addTask():
 
     tasks.append(Task(TaskCreationEntry.get(), len(tasks)))
     TaskCreationEntry.delete(0, tk.END)
-    # tasks[-1].number = len(tasks)
     tasks[-1].NameLabel.grid(row=rows, column=0)
     tasks[-1].TimeLabel.grid(row=rows, column=1)
     tasks[-1].RadioButton.grid(row=rows, column=2)
     tasks[-1].DeleteButton.grid(row=rows, column=3)
     rows += 1
 
+
+"""Main constant elements of the window are initialized and gridded below. Global variables are defined."""
+
+window = tk.Tk()
+window.title("WorkTracker")
+var = tk.IntVar()
+frame = tk.Frame(master=window)
+frame.pack()
+
+tasks = []
+rows = 4
+activeTask = 0
+running = False
+start_time = 0
+stop_time = 0
+first_count = True
+counter = 0
 
 WelcomeLabel = tk.Label(master=frame, text="Welcome to WorkTracker, alpha version!")
 WelcomeLabel.grid(row=0, column=0)
@@ -158,7 +193,7 @@ ElapsedTag.grid(row=2, column=1)
 TrackedTag = tk.Label(master=frame, text="Track")
 TrackedTag.grid(row=2, column=2)
 
-DeleteTag = tk.Label(master=frame, text="Delete Task")
+DeleteTag = tk.Label(master=frame, text="Delete")
 DeleteTag.grid(row=2, column=3)
 
 Separator = tkinter.ttk.Separator(master=frame)
