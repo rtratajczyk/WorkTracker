@@ -1,15 +1,13 @@
+'''A small Python program for purposes of time tracking of various tasks, for instance at work.
+Developed by Rafał Ratajczyk.'''
+
 import tkinter as tk
 import tkinter.ttk
 import time
 
-'''BACKLOG: deselect radiobuttons when stopping time tracking, somehow do time updating with label.after()'''
-
-
-
-
 
 class Task:
-    """The Task class"""
+    """The Task class. Its init function creates all the necessary variables and tkinter widgets."""
     def __init__(self, name, number):
         self.name = name
         self.number = number
@@ -23,25 +21,36 @@ class Task:
 
 
 def onReturnKey(event):
+    """An event listener that allows to add a task by pressing the Return key. Needs the positional event argument."""
     addTask()
 
 
 def redrawTaskList():
+    """A function which reorganizes the tasks[] list after one of them is deleted.
+    Also redefines lambda functions of the remaining tasks' buttons, which is vital for proper further operations."""
     global rows
     global tasks
+    global activeTask
 
     num = 0
-    rows = 4
+    print("Redrawing list!")
     for t in tasks:
         t.number = num
+        if t.is_tracked:
+            activeTask = t.number
+            print("ActiveTask renumbered.")
         t.DeleteButton.configure(command=lambda a=num: delTask(a))
         t.RadioButton.configure(command=lambda a=num: select(a))
-        print("The new number of Task named " + t.name + " is " + str(t.number))
+        # print("The new number of Task named " + t.name + " is " + str(t.number))
         num += 1
+    rows = num + 5
 
 
 def delTask(number):
+    """A function that deletes all widgets of a task, removes it from the tasks[] list and calls the redrawTaskList()
+    function to reorganize the list."""
     global tasks
+    global rows
     print("Deleting Task number: " + str(number) + ", while the current highest index of tasks[] is " + str(len(tasks)-1))
     if tasks[number].is_tracked:
         timeStop()
@@ -51,12 +60,13 @@ def delTask(number):
     tasks[number].DeleteButton.destroy()
     del tasks[number]
     redrawTaskList()
-
-
-
+    if number < activeTask:
+        updateLoop(activeTask)
 
 
 def timeConvert(sec):
+    """A function for easy conversion of seconds into hours, minutes & seconds format.
+    Returns a nicely formatted string."""
     mins = sec // 60
     sec = sec % 60
     hours = mins // 60
@@ -66,6 +76,7 @@ def timeConvert(sec):
 
 
 def timeStart(task_number):
+    """A function that starts time tracking for a task of the given number."""
     global activeTask
     global start_time
     global tasks
@@ -80,7 +91,7 @@ def timeStart(task_number):
         activeTask = task_number
         tasks[task_number].is_tracked = True
         print("Tracking started for Task: " + tasks[activeTask].name)
-        updateLoop(task_number)
+        updateLoop(activeTask)
 
 
 def updateLoop(task_number):
@@ -89,12 +100,17 @@ def updateLoop(task_number):
     global counter
 
     def update():
-        if tasks[task_number].is_tracked:
-            global counter
-            tasks[task_number].TimeLabel.configure(text=str(timeConvert(tasks[task_number].recordedTime)))
-            tasks[task_number].TimeLabel.after(1000, update)
-            counter += 1
-            tasks[task_number].recordedTime += 1
+        try:
+            if tasks[task_number].is_tracked:
+                global counter
+                tasks[task_number].TimeLabel.configure(text=str(timeConvert(tasks[task_number].recordedTime)))
+                tasks[task_number].TimeLabel.after(1000, update)
+                counter += 1
+                tasks[task_number].recordedTime += 1
+        except IndexError:
+            print("UpdateLoop IndexError!")
+            redrawTaskList()
+            return
     update()
 
 
@@ -104,7 +120,10 @@ def timeStop():
     global tasks
     global counter
     #stop_time = time.time()
-    tasks[activeTask].is_tracked = False
+    for t in tasks:
+        if t.is_tracked:
+            tasks[activeTask].is_tracked = False
+
     # elapsed_time = timeConvert(stop_time-start_time)
     '''for t in tasks:
         if t.is_tracked:
@@ -118,6 +137,7 @@ def timeStop():
 
 
 def select(task_number):
+    """A function that handles the behavior of RadioButtons."""
     global first_count
     # global activeTask
     global tasks
@@ -140,7 +160,8 @@ def addTask():
     if TaskCreationEntry.get() == "":
         return
     global rows
-
+    global tasks
+    print("putting new task in row:" + str(rows))
     tasks.append(Task(TaskCreationEntry.get(), len(tasks)))
     TaskCreationEntry.delete(0, tk.END)
     tasks[-1].NameLabel.grid(row=rows, column=0)
@@ -160,7 +181,7 @@ frame.pack()
 
 tasks = []
 rows = 4
-activeTask = 0
+activeTask = -1
 running = False
 start_time = 0
 stop_time = 0
