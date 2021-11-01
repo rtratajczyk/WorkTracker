@@ -15,7 +15,7 @@ class Task:
         self.recordedTime = 0
         self.deleted = False
         self.NameLabel = tk.Label(master=frame, text=self.name)
-        self.TimeLabel = tk.Label(master=frame, text=self.recordedTime)
+        self.TimeLabel = tk.Label(master=frame, text="0h : 0m : 0s")
         self.RadioButton = tk.Radiobutton(master=frame, value=rows, variable=var, command=lambda a=self.number: select(a))
         self.DeleteButton = tk.Button(master=frame, text="X", command=lambda: delTask(self.number))
 
@@ -182,7 +182,6 @@ frame.pack()
 tasks = []
 rows = 4
 activeTask = -1
-running = False
 start_time = 0
 stop_time = 0
 first_count = True
