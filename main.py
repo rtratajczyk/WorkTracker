@@ -41,9 +41,15 @@ def redrawTaskList():
             print("ActiveTask renumbered.")
         t.DeleteButton.configure(command=lambda a=num: delTask(a))
         t.RadioButton.configure(command=lambda a=num: select(a))
+        t.RadioButton.configure(value=num + 4)
+        t.NameLabel.grid(row=num + 4, column=0)
+        t.TimeLabel.grid(row=num + 4, column=1)
+        t.RadioButton.grid(row=num + 4, column=2)
+        t.DeleteButton.grid(row=num + 4, column=3)
         # print("The new number of Task named " + t.name + " is " + str(t.number))
         num += 1
-    rows = num + 5
+    rows = len(tasks) + 4
+    print("Next task will be put in row:" + str(rows))
 
 
 def delTask(number):
@@ -54,11 +60,16 @@ def delTask(number):
     print("Deleting Task number: " + str(number) + ", while the current highest index of tasks[] is " + str(len(tasks)-1))
     if tasks[number].is_tracked:
         timeStop()
+    #tasks[number].NameLabel.forget()
     tasks[number].NameLabel.destroy()
+    #tasks[number].TimeLabel.forget()
     tasks[number].TimeLabel.destroy()
+    #tasks[number].RadioButton.forget()
     tasks[number].RadioButton.destroy()
+    #tasks[number].DeleteButton.forget()
     tasks[number].DeleteButton.destroy()
     del tasks[number]
+    rows -= 1
     redrawTaskList()
     if number < activeTask:
         updateLoop(activeTask)
@@ -139,14 +150,18 @@ def timeStop():
 def select(task_number):
     """A function that handles the behavior of RadioButtons."""
     global first_count
-    # global activeTask
+    global var
     global tasks
+    global activeTask
 
     if not first_count:
         timeStop()
     else:
         first_count = False
     if task_number == activeTask:
+        activeTask = -1
+        tasks[task_number].is_tracked = False
+        var.set(None)
         return
     else:
         timeStart(task_number)
@@ -164,10 +179,10 @@ def addTask():
     print("putting new task in row:" + str(rows))
     tasks.append(Task(TaskCreationEntry.get(), len(tasks)))
     TaskCreationEntry.delete(0, tk.END)
-    tasks[-1].NameLabel.grid(row=rows, column=0)
-    tasks[-1].TimeLabel.grid(row=rows, column=1)
-    tasks[-1].RadioButton.grid(row=rows, column=2)
-    tasks[-1].DeleteButton.grid(row=rows, column=3)
+    tasks[-1].NameLabel.grid(row=rows+2, column=0)
+    tasks[-1].TimeLabel.grid(row=rows+2, column=1)
+    tasks[-1].RadioButton.grid(row=rows+2, column=2)
+    tasks[-1].DeleteButton.grid(row=rows+2, column=3)
     rows += 1
 
 
@@ -178,6 +193,7 @@ window.title("WorkTracker")
 var = tk.IntVar()
 frame = tk.Frame(master=window)
 frame.pack()
+
 
 tasks = []
 rows = 4
@@ -200,9 +216,6 @@ TaskCreationEntry.bind('<Return>', onReturnKey)
 
 TaskCreationBtn = tk.Button(master=frame, text="Add", command=addTask)
 TaskCreationBtn.grid(row=1, column=2)
-
-# StopBtn = tk.Button(master=frame, text="Stop tracking", command=timeStop)
-# StopBtn.grid(row=1, column=3)
 
 NameTag = tk.Label(master=frame, text="Task name")
 NameTag.grid(row=2, column=0)

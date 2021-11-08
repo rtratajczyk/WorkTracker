@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="Debugging &amp; commenting done; some indexing bugs still happen, to be done soon. Created an .exe file.">
+    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="Renamed .exe file, made some tweaks.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -211,7 +211,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635696501395</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Renamed .exe file, made some tweaks.">
+      <created>1635790128964</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1635790128964</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -250,7 +257,8 @@
     <MESSAGE value="You can now add tasks by pressing Return." />
     <MESSAGE value="A stable, yet uncommented version. Commit done for forking purposes." />
     <MESSAGE value="Branch-fixing commit." />
-    <option name="LAST_COMMIT_MESSAGE" value="Branch-fixing commit." />
+    <MESSAGE value="Renamed .exe file, made some tweaks." />
+    <option name="LAST_COMMIT_MESSAGE" value="Renamed .exe file, made some tweaks." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
