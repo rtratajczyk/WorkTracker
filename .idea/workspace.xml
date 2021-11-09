@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="Renamed .exe file, made some tweaks.">
+    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="Grid row indexing major bugs are gone! Radiobuttons are now wonky when deleting a task, should not be hard to debug.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -218,7 +218,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635790128964</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Grid row indexing major bugs are gone! Radiobuttons are now wonky when deleting a task, should not be hard to debug.">
+      <created>1636406939434</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1636406939434</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -258,7 +265,8 @@
     <MESSAGE value="A stable, yet uncommented version. Commit done for forking purposes." />
     <MESSAGE value="Branch-fixing commit." />
     <MESSAGE value="Renamed .exe file, made some tweaks." />
-    <option name="LAST_COMMIT_MESSAGE" value="Renamed .exe file, made some tweaks." />
+    <MESSAGE value="Grid row indexing major bugs are gone! Radiobuttons are now wonky when deleting a task, should not be hard to debug." />
+    <option name="LAST_COMMIT_MESSAGE" value="Grid row indexing major bugs are gone! Radiobuttons are now wonky when deleting a task, should not be hard to debug." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -266,6 +274,7 @@
         <watch expression="tasks" language="Python" />
         <watch expression="redrawn_tasks" language="Python" />
         <watch expression="rows" language="Python" />
+        <watch expression="var" language="Python" />
       </configuration>
     </watches-manager>
   </component>

@@ -31,9 +31,11 @@ def redrawTaskList():
     global rows
     global tasks
     global activeTask
+    global var
 
     num = 0
     print("Redrawing list!")
+    var.set(None)
     for t in tasks:
         t.number = num
         if t.is_tracked:
@@ -42,6 +44,8 @@ def redrawTaskList():
         t.DeleteButton.configure(command=lambda a=num: delTask(a))
         t.RadioButton.configure(command=lambda a=num: select(a))
         t.RadioButton.configure(value=num + 4)
+        if t.is_tracked:
+            t.RadioButton.select()
         t.NameLabel.grid(row=num + 4, column=0)
         t.TimeLabel.grid(row=num + 4, column=1)
         t.RadioButton.grid(row=num + 4, column=2)
