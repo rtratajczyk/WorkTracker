@@ -64,18 +64,14 @@ def delTask(number):
     print("Deleting Task number: " + str(number) + ", while the current highest index of tasks[] is " + str(len(tasks)-1))
     if tasks[number].is_tracked:
         timeStop()
-    #tasks[number].NameLabel.forget()
     tasks[number].NameLabel.destroy()
-    #tasks[number].TimeLabel.forget()
     tasks[number].TimeLabel.destroy()
-    #tasks[number].RadioButton.forget()
     tasks[number].RadioButton.destroy()
-    #tasks[number].DeleteButton.forget()
     tasks[number].DeleteButton.destroy()
     del tasks[number]
-    rows -= 1
+    # rows -= 1
     redrawTaskList()
-    if number < activeTask:
+    if number <= activeTask:
         updateLoop(activeTask)
 
 
@@ -118,9 +114,9 @@ def updateLoop(task_number):
         try:
             if tasks[task_number].is_tracked:
                 global counter
+                print("counting")
                 tasks[task_number].TimeLabel.configure(text=str(timeConvert(tasks[task_number].recordedTime)))
                 tasks[task_number].TimeLabel.after(1000, update)
-                counter += 1
                 tasks[task_number].recordedTime += 1
         except IndexError:
             print("UpdateLoop IndexError!")
@@ -131,24 +127,10 @@ def updateLoop(task_number):
 
 def timeStop():
     """A function for easy setting of the is_tracked flag of a task to False."""
-    global stop_time
     global tasks
-    global counter
-    #stop_time = time.time()
     for t in tasks:
         if t.is_tracked:
             tasks[activeTask].is_tracked = False
-
-    # elapsed_time = timeConvert(stop_time-start_time)
-    '''for t in tasks:
-        if t.is_tracked:
-            t.is_tracked = False
-            try:
-                t.recordedTime += (stop_time-start_time)
-                t.TimeLabel.configure(text=str(timeConvert(t.recordedTime)))
-            except IndexError:
-                return'''
-    # print("Tracking stopped. Lapsed time is: " + elapsed_time)
 
 
 def select(task_number):

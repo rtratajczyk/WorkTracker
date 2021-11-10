@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="Grid row indexing major bugs are gone! Radiobuttons are now wonky when deleting a task, should not be hard to debug.">
+    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="Radiobuttons debugged! So far, the app seems to be highly stable and free of all known bugs. Additional testing and/or time will reveal if there are new bugs to discover.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -225,7 +225,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636406939434</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Radiobuttons debugged! So far, the app seems to be highly stable and free of all known bugs. Additional testing and/or time will reveal if there are new bugs to discover.">
+      <created>1636494612749</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1636494612749</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -266,13 +273,13 @@
     <MESSAGE value="Branch-fixing commit." />
     <MESSAGE value="Renamed .exe file, made some tweaks." />
     <MESSAGE value="Grid row indexing major bugs are gone! Radiobuttons are now wonky when deleting a task, should not be hard to debug." />
-    <option name="LAST_COMMIT_MESSAGE" value="Grid row indexing major bugs are gone! Radiobuttons are now wonky when deleting a task, should not be hard to debug." />
+    <MESSAGE value="Radiobuttons debugged! So far, the app seems to be highly stable and free of all known bugs. Additional testing and/or time will reveal if there are new bugs to discover." />
+    <option name="LAST_COMMIT_MESSAGE" value="Radiobuttons debugged! So far, the app seems to be highly stable and free of all known bugs. Additional testing and/or time will reveal if there are new bugs to discover." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="tasks" language="Python" />
-        <watch expression="redrawn_tasks" language="Python" />
         <watch expression="rows" language="Python" />
         <watch expression="var" language="Python" />
       </configuration>
