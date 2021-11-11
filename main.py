@@ -109,12 +109,14 @@ def updateLoop(task_number):
     """A looping function which allows for real-time updating of the time label of a task."""
     global tasks
     global counter
+    global activeTask
 
-    def update():
+    def update():  # <-- somewhere here should be a condition (if one loop exists, no new should be launched).
+        global counter
+        global trackingNow
         try:
             if tasks[task_number].is_tracked:
-                global counter
-                print("counting")
+                # print("counting")
                 tasks[task_number].TimeLabel.configure(text=str(timeConvert(tasks[task_number].recordedTime)))
                 tasks[task_number].TimeLabel.after(1000, update)
                 tasks[task_number].recordedTime += 1
@@ -122,15 +124,19 @@ def updateLoop(task_number):
             print("UpdateLoop IndexError!")
             redrawTaskList()
             return
+
     update()
 
 
 def timeStop():
     """A function for easy setting of the is_tracked flag of a task to False."""
     global tasks
+    global trackingNow
+
     for t in tasks:
         if t.is_tracked:
             tasks[activeTask].is_tracked = False
+            trackingNow = False
 
 
 def select(task_number):
@@ -139,6 +145,7 @@ def select(task_number):
     global var
     global tasks
     global activeTask
+    global debouncer
 
     if not first_count:
         timeStop()
@@ -148,9 +155,16 @@ def select(task_number):
         activeTask = -1
         tasks[task_number].is_tracked = False
         var.set(None)
+        debouncer = time.time()
         return
-    else:
+    elif task_number != activeTask and time.time()-debouncer > 2:
+        print("Not debouncing!")
+        debouncer = time.time()
         timeStart(task_number)
+    else:
+        print("Please do not spam click on RadioButtons.")
+        var.set(None)
+        #debouncer = time.time()
     # tasks[task_number].is_tracked = True
 
 
@@ -187,7 +201,9 @@ activeTask = -1
 start_time = 0
 stop_time = 0
 first_count = True
+trackingNow = False
 counter = 0
+debouncer = 0
 
 WelcomeLabel = tk.Label(master=frame, text="Welcome to WorkTracker, alpha version!")
 WelcomeLabel.grid(row=0, column=0)
@@ -218,5 +234,6 @@ DeleteTag.grid(row=2, column=3)
 Separator = tkinter.ttk.Separator(master=frame)
 Separator.grid(row=3, column=0, columnspan=4, sticky="ew")
 
+debouncer = time.time()
 
 window.mainloop()

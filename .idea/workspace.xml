@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="Radiobuttons debugged! So far, the app seems to be highly stable and free of all known bugs. Additional testing and/or time will reveal if there are new bugs to discover.">
+    <list default="true" id="f3e705ae-b76b-479c-acb2-f749df35fd35" name="Changes" comment="A new bug was found and patched! No new bugs known so far.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -232,7 +232,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636494612749</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="A new bug was found and patched! No new bugs known so far.">
+      <created>1636540309658</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1636540309658</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -274,7 +281,8 @@
     <MESSAGE value="Renamed .exe file, made some tweaks." />
     <MESSAGE value="Grid row indexing major bugs are gone! Radiobuttons are now wonky when deleting a task, should not be hard to debug." />
     <MESSAGE value="Radiobuttons debugged! So far, the app seems to be highly stable and free of all known bugs. Additional testing and/or time will reveal if there are new bugs to discover." />
-    <option name="LAST_COMMIT_MESSAGE" value="Radiobuttons debugged! So far, the app seems to be highly stable and free of all known bugs. Additional testing and/or time will reveal if there are new bugs to discover." />
+    <MESSAGE value="A new bug was found and patched! No new bugs known so far." />
+    <option name="LAST_COMMIT_MESSAGE" value="A new bug was found and patched! No new bugs known so far." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
