@@ -34,13 +34,13 @@ def redrawTaskList():
     global var
 
     num = 0
-    print("Redrawing list!")
+    # print("Redrawing list!")
     var.set(None)
     for t in tasks:
         t.number = num
         if t.is_tracked:
             activeTask = t.number
-            print("ActiveTask renumbered.")
+            # print("ActiveTask renumbered.")
         t.DeleteButton.configure(command=lambda a=num: delTask(a))
         t.RadioButton.configure(command=lambda a=num: select(a))
         t.RadioButton.configure(value=num + 4)
@@ -53,7 +53,7 @@ def redrawTaskList():
         # print("The new number of Task named " + t.name + " is " + str(t.number))
         num += 1
     rows = len(tasks) + 4
-    print("Next task will be put in row:" + str(rows))
+    # print("Next task will be put in row:" + str(rows))
 
 
 def delTask(number):
@@ -61,7 +61,7 @@ def delTask(number):
     function to reorganize the list."""
     global tasks
     global rows
-    print("Deleting Task number: " + str(number) + ", while the current highest index of tasks[] is " + str(len(tasks)-1))
+    # print("Deleting Task number: " + str(number) + ", while the current highest index of tasks[] is " + str(len(tasks)-1))
     if tasks[number].is_tracked:
         timeStop()
     tasks[number].NameLabel.destroy()
@@ -101,7 +101,7 @@ def timeStart(task_number):
         start_time = time.time()
         activeTask = task_number
         tasks[task_number].is_tracked = True
-        print("Tracking started for Task: " + tasks[activeTask].name)
+        # print("Tracking started for Task: " + tasks[activeTask].name)
         updateLoop(activeTask)
 
 
@@ -121,7 +121,7 @@ def updateLoop(task_number):
                 tasks[task_number].TimeLabel.after(1000, update)
                 tasks[task_number].recordedTime += 1
         except IndexError:
-            print("UpdateLoop IndexError!")
+            # print("UpdateLoop IndexError!")
             redrawTaskList()
             return
 
@@ -157,8 +157,8 @@ def select(task_number):
         var.set(None)
         debouncer = time.time()
         return
-    elif task_number != activeTask and time.time()-debouncer > 2:
-        print("Not debouncing!")
+    elif task_number != activeTask and time.time()-debouncer > 1:
+        #  print("Not debouncing!")
         debouncer = time.time()
         timeStart(task_number)
     else:
@@ -176,7 +176,7 @@ def addTask():
         return
     global rows
     global tasks
-    print("putting new task in row:" + str(rows))
+    # print("putting new task in row:" + str(rows))
     tasks.append(Task(TaskCreationEntry.get(), len(tasks)))
     TaskCreationEntry.delete(0, tk.END)
     tasks[-1].NameLabel.grid(row=rows+2, column=0)
@@ -205,7 +205,7 @@ trackingNow = False
 counter = 0
 debouncer = 0
 
-WelcomeLabel = tk.Label(master=frame, text="Welcome to WorkTracker, alpha version!")
+WelcomeLabel = tk.Label(master=frame, text="Welcome to WorkTracker, v 1.0!")
 WelcomeLabel.grid(row=0, column=0)
 
 TaskCreationLabel = tk.Label(master=frame, text="Input name of a new Task to track:")
